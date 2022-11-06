@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "WingetGUI (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "WingetGUI (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

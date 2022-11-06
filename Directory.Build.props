@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <Authors>Luigi Grilli</Authors>
+    <Product>GUI for winget</Product>
+  </PropertyGroup>
+</Project>
