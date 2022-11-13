@@ -14,22 +14,40 @@
 	<UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Package.appinstaller" />
+  </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\..\lib\x86\Microsoft.Management.Deployment.winmd" Link="Microsoft.Management.Deployment.winmd" />
+    <Content Include="Package.appinstaller">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.3" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.23" />
     <PackageReference Include="WinUIEx" Version="1.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WingetGUI.Core\WingetGUI.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Management.Deployment.Projection">
+      <HintPath>..\..\lib\x86\Microsoft.Management.Deployment.Projection.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

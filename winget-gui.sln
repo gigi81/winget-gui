@@ -5,29 +5,34 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F5BC4C87-5A85-49E4-A14E-1DF742991585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WingetGUI", "src\WingetGUI\WingetGUI.csproj", "{76A99B63-671F-46BC-8636-85E382F2F050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WingetGUI", "src\WingetGUI\WingetGUI.csproj", "{76A99B63-671F-46BC-8636-85E382F2F050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WingetGUI.Core", "src\WingetGUI.Core\WingetGUI.Core.csproj", "{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WingetGUI.Core", "src\WingetGUI.Core\WingetGUI.Core.csproj", "{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{27E3D305-8F8D-4EDA-917D-DF37E32CB23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WingetGUI.Tests.MSTest", "tests\WingetGUI.Tests.MSTest\WingetGUI.Tests.MSTest.csproj", "{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WingetGUI.Tests.MSTest", "tests\WingetGUI.Tests.MSTest\WingetGUI.Tests.MSTest.csproj", "{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEA1C317-375D-4E48-B1C9-EBBED5222B11}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		LICENSE.md = LICENSE.md
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{76A99B63-671F-46BC-8636-85E382F2F050}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{76A99B63-671F-46BC-8636-85E382F2F050}.Debug|Any CPU.Build.0 = Debug|x86
+		{76A99B63-671F-46BC-8636-85E382F2F050}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{76A99B63-671F-46BC-8636-85E382F2F050}.Release|Any CPU.ActiveCfg = Release|x86
 		{76A99B63-671F-46BC-8636-85E382F2F050}.Release|Any CPU.Build.0 = Release|x86
-		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Debug|Any CPU.Build.0 = Debug|x86
 		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -35,9 +40,15 @@ Global
 		{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B}.Release|Any CPU.ActiveCfg = Release|x86
 		{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B}.Release|Any CPU.Build.0 = Release|x86
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76A99B63-671F-46BC-8636-85E382F2F050} = {F5BC4C87-5A85-49E4-A14E-1DF742991585}
 		{E8E43AB5-F071-40E0-B4C4-21B6B40C994E} = {F5BC4C87-5A85-49E4-A14E-1DF742991585}
 		{E4F7EBC1-552A-4B4E-966A-9B352E6BCB7B} = {27E3D305-8F8D-4EDA-917D-DF37E32CB23A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2EC8013-A7E2-4CA0-A79A-505E6AAB3D3A}
 	EndGlobalSection
 EndGlobal

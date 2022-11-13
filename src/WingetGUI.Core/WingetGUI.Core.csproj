@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>WingetGUI.Core</RootNamespace>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Platforms>x86;x64;arm64;AnyCPU</Platforms>
+	<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+	<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+	<RootNamespace>WingetGUI.Core</RootNamespace>
+    <Platforms>x86</Platforms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="..\..\lib\x86\Microsoft.Management.Deployment.winmd" Link="Microsoft.Management.Deployment.winmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Management.Deployment.Projection">
+      <HintPath>..\..\lib\x86\Microsoft.Management.Deployment.Projection.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

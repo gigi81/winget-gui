@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
-
+using Windows.System;
 using WingetGUI.Activation;
 using WingetGUI.Contracts.Services;
 using WingetGUI.Core.Contracts.Services;
@@ -45,8 +46,7 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        Host = Microsoft.Extensions.Hosting.Host.
-        CreateDefaultBuilder().
+        Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
         {
@@ -67,18 +67,29 @@ public partial class App : Application
             services.AddSingleton<INavigationService, NavigationService>();
 
             // Core Services
+            services.AddSingleton<IPackageManagerService, PackageManagerService>();
             services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IFileService, FileService>();
 
             // Views and ViewModels
-            services.AddTransient<SearchPackagesViewModel>();
+            services.AddSingleton<SearchPackagesViewModel>();
             services.AddTransient<SearchPackagesPage>();
-            services.AddTransient<UpdatedablePackagesViewModel>();
+            services.AddSingleton<UpdatedablePackagesViewModel>();
             services.AddTransient<UpdatedablePackagesPage>();
-            services.AddTransient<InstalledPackagesViewModel>();
+            services.AddSingleton<InstalledPackagesViewModel>();
             services.AddTransient<InstalledPackagesPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+
+
+            services.AddTransient(s => DispatcherQueue.GetForCurrentThread());
+            services.AddTransient<IDispatcherService, DispatcherService>();
+
+            //logging configuration
+            services.AddLogging(config =>
+            {
+                config.AddConsole();
+            });
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

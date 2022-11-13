@@ -7,33 +7,25 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea">
+    <Grid x:Name="ContentArea" RowDefinitions ="100,*">
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <ComboBox ItemsSource="{x:Bind ViewModel.Catalogues}" Header="Catalogue" Width="200" SelectedValue="{x:Bind ViewModel.PackageCatalogName, Mode=TwoWay}"/>
+            <ProgressRing IsActive="{x:Bind ViewModel.Loading, Mode=TwoWay}" Grid.Row="0" Margin="10, 0, 0, 0" />
+        </StackPanel>
         <controls:DataGrid
+            Grid.Row="1"
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
+            Sorting="DataGrid_Sorting"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
             <controls:DataGrid.Columns>
-                <!-- TODO: Replace column definitions to match real data. Consider adding Header values to Resources.resw. -->
-                <controls:DataGridTextColumn Binding="{Binding OrderID}" Header="OrderID" />
-                <controls:DataGridTextColumn Binding="{Binding OrderDate}" Header="OrderDate" />
-                <controls:DataGridTextColumn Binding="{Binding Company}" Header="Company" />
-                <controls:DataGridTextColumn Binding="{Binding ShipTo}" Header="ShipTo" />
-                <controls:DataGridTextColumn Binding="{Binding OrderTotal}" Header="OrderTotal" />
-                <controls:DataGridTextColumn Binding="{Binding Status}" Header="Status" />
-                <controls:DataGridTemplateColumn Header="Symbol">
-                    <controls:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="{Binding Symbol}"
-                                AutomationProperties.Name="{Binding SymbolName}" />
-                        </DataTemplate>
-                    </controls:DataGridTemplateColumn.CellTemplate>
-                </controls:DataGridTemplateColumn>
+                <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
+                <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" Tag="Name" SortDirection="Ascending" />
+                <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" Tag="Version" />
+                <controls:DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher" Tag="Publisher" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>
