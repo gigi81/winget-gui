@@ -5,8 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:primitives="using:CommunityToolkit.WinUI.UI.Controls.Primitives"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterInverted" TrueValue="Collapsed" FalseValue="Visible"/>
+    </Page.Resources>
+    
     <Grid x:Name="ContentArea" RowDefinitions ="100,*">
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <ComboBox ItemsSource="{x:Bind ViewModel.Catalogues}" Header="Catalogue" Width="200" SelectedValue="{x:Bind ViewModel.PackageCatalogName, Mode=TwoWay}"/>
@@ -22,10 +29,43 @@
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
             <controls:DataGrid.Columns>
+                <controls:DataGridTemplateColumn Header="" Width="70" CanUserSort="False" CanUserResize="false" CanUserReorder="false" SortDirection="{x:Null}">
+                    <controls:DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="primitives:DataGridColumnHeader">
+                            <Setter Property="Margin" Value="0,0,0,0"/>
+                            <Setter Property="Padding" Value="0,0,0,0"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <CheckBox Click="CheckBox_Click" />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:DataGridTemplateColumn.HeaderStyle>
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
+
                 <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
                 <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" Tag="Name" SortDirection="Ascending" />
                 <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" Tag="Version" />
+                <controls:DataGridTextColumn Binding="{Binding NextVersion}" Header="NextVersion" Tag="NextVersion" />
                 <controls:DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher" Tag="Publisher" />
+                <controls:DataGridTemplateColumn Header="Upgrade" MinWidth="250">
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <Button Command="{Binding UpgradeCommand}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverterInverted}}">Upgrade</Button>
+                                <TextBlock Text="{Binding ProgressLabel}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <ProgressBar Value="{Binding ProgressPercentage}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>

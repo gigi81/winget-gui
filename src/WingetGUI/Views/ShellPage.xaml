@@ -35,6 +35,12 @@
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="SearchBox"
+                                MinWidth="150"
+                                VerticalAlignment="Center"
+                                QueryIcon="Find"/>
+            </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <!--
                 TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.

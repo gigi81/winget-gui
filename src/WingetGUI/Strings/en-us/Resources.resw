@@ -68,13 +68,13 @@
     <value>Main</value>
   </data>
   <data name="Shell_InstalledPackages.Content" xml:space="preserve">
-    <value>InstalledPackages</value>
+    <value>Installed Packages</value>
   </data>
   <data name="Shell_UpdatedablePackages.Content" xml:space="preserve">
-    <value>UpdatedablePackages</value>
+    <value>Updatedable Packages</value>
   </data>
   <data name="Shell_SearchPackages.Content" xml:space="preserve">
-    <value>SearchPackages</value>
+    <value>Search Packages</value>
   </data>
   <data name="AppNotificationSamplePayload" xml:space="preserve">
     <value>&lt;toast launch="action=ToastClick"&gt;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq.Dynamic.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WingetGUI.Contracts.ViewModels;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
@@ -15,9 +16,9 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
     private string _sorting = nameof(InstalledPackage.Name);
     private string? _packageCatalogName;
     private bool _loading;
-    private IList<InstalledPackage> _source = new List<InstalledPackage>();
+    private IList<InstalledPackageViewModel> _source = new List<InstalledPackageViewModel>();
 
-    public IList<InstalledPackage> Source
+    public IList<InstalledPackageViewModel> Source
     {
         get => _source;
         private set => this.SetProperty(ref _source, value);
@@ -29,6 +30,14 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
     {
         _packageManagerService = packageManagerService;
         _dispatcherService = DispatcherService.FromCurrentThread();
+    }
+
+    public RelayCommand SelectAllCommand => new RelayCommand(this.SelectAll, () => true);
+
+    private void SelectAll()
+    {
+        foreach(var package in this.Source)
+            package.Selected = true;
     }
 
     public string Sorting
@@ -85,11 +94,11 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
             if (String.IsNullOrEmpty(this.PackageCatalogName))
                 return;
 
-            var packages = await _packageManagerService.GetInstalledPackages(this.PackageCatalogName, new CancellationToken());
+            var packages = await _packageManagerService.GetUpgradablePackages(this.PackageCatalogName, new CancellationToken());
 
             _dispatcherService.TryEnqueue(() =>
             {
-                this.UpdateSource(packages);
+                this.UpdateSource(packages.Select(p => new InstalledPackageViewModel(p, _packageManagerService, _dispatcherService)).ToList());
             });
         }
         finally
@@ -98,7 +107,7 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
         }
     }
 
-    private void UpdateSource(IEnumerable<InstalledPackage> packages)
+    private void UpdateSource(IEnumerable<InstalledPackageViewModel> packages)
     {
         var sorted = packages.AsQueryable().OrderBy(this.Sorting).ToArray();
         this.Source = sorted.ToList();

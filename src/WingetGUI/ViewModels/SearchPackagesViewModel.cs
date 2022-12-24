@@ -5,31 +5,65 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using WingetGUI.Contracts.ViewModels;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
+using WingetGUI.Services;
 
 namespace WingetGUI.ViewModels;
 
 public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
 {
-    private readonly ISampleDataService _sampleDataService;
+    private string _search;
+    private bool _searching;
+    private readonly IPackageManagerService _packageManagerService;
+    private readonly IDispatcherService _dispatcherService;
+    private IList<SearchResultPackage> _source = new List<SearchResultPackage>();
 
-    public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
-
-    public SearchPackagesViewModel(ISampleDataService sampleDataService)
+    public SearchPackagesViewModel(IPackageManagerService packageManagerService)
     {
-        _sampleDataService = sampleDataService;
+        _packageManagerService = packageManagerService;
+        _dispatcherService = DispatcherService.FromCurrentThread();
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public IList<SearchResultPackage> Source
     {
-        Source.Clear();
+        get => _source;
+        private set => this.SetProperty(ref _source, value);
+    }
 
-        // TODO: Replace with real data.
-        var data = await _sampleDataService.GetGridDataAsync();
+    public string Search
+    {
+        get => _search;
+        set => SetProperty(ref _search, value);
+    }
 
-        foreach (var item in data)
+    public bool CanSearch => !this.Searching;
+
+    public bool Searching
+    {
+        get => _searching;
+        set
         {
-            Source.Add(item);
+            SetProperty(ref _searching, value);
+            OnPropertyChanged(nameof(CanSearch));
         }
+    }
+
+    public void SearchSubmitted()
+    {
+        this.Searching = true;
+
+        Task.Run(async () => {
+            var source = await _packageManagerService.Search("winget", this.Search, CancellationToken.None);
+
+            _dispatcherService.TryEnqueue(() =>
+            {
+                this.Source = source.ToList();
+                this.Searching = false;
+            });
+        });
+    }
+
+    public void OnNavigatedTo(object parameter)
+    {
     }
 
     public void OnNavigatedFrom()

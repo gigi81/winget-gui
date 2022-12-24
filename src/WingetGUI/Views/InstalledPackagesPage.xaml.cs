@@ -1,18 +1,12 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.WinUI.UI.Controls;
-
 using WingetGUI.ViewModels;
 
 namespace WingetGUI.Views;
 
-// TODO: Change the grid as appropriate for your app. Adjust the column definitions on DataGridPage.xaml.
-// For more details, see the documentation at https://docs.microsoft.com/windows/communitytoolkit/controls/datagrid.
 public sealed partial class InstalledPackagesPage : Page
 {
-    public InstalledPackagesViewModel ViewModel
-    {
-        get;
-    }
+    public InstalledPackagesViewModel ViewModel { get; }
 
     public InstalledPackagesPage()
     {
@@ -33,11 +27,8 @@ public sealed partial class InstalledPackagesPage : Page
     private string GetSortDirection(DataGrid grid, DataGridColumnEventArgs e)
     {
         //reset previous sorting
-        foreach (var column in grid.Columns)
-        {
-            if (column != e.Column)
-                column.SortDirection = null;
-        }
+        foreach (var column in grid.Columns.Where(c => c != e.Column))
+            column.SortDirection = null;
 
         if (e.Column.SortDirection == null || e.Column.SortDirection == DataGridSortDirection.Descending)
         {
@@ -47,5 +38,15 @@ public sealed partial class InstalledPackagesPage : Page
 
         e.Column.SortDirection = DataGridSortDirection.Descending;
         return "desc";
+    }
+
+    private void CheckBox_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var check = (sender as CheckBox)?.IsChecked;
+        if (!check.HasValue)
+            return;
+
+        foreach(var package in this.ViewModel.Source)
+            package.Selected = check.Value;
     }
 }
