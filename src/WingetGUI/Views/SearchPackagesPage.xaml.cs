@@ -5,11 +5,11 @@ namespace WingetGUI.Views;
 
 public sealed partial class SearchPackagesPage : Page
 {
-    public SearchPackagesViewModel ViewModel { get; }
+    public SearchPageViewModel ViewModel { get; }
 
     public SearchPackagesPage()
     {
-        ViewModel = App.GetService<SearchPackagesViewModel>();
+        ViewModel = App.GetService<SearchPageViewModel>();
         InitializeComponent();
     }
 }

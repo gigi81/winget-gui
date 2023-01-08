@@ -7,7 +7,7 @@ using WingetGUI.ViewModels.Items;
 
 namespace WingetGUI.ViewModels;
 
-public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
+public class SearchPageViewModel : ObservableRecipient, INavigationAware
 {
     private string _search;
     private bool _searching;
@@ -15,7 +15,7 @@ public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
     private readonly IDispatcherService _dispatcherService;
     private IList<SearchPackageViewModel> _source = new List<SearchPackageViewModel>();
 
-    public SearchPackagesViewModel(IPackageManagerService packageManagerService)
+    public SearchPageViewModel(IPackageManagerService packageManagerService)
     {
         _packageManagerService = packageManagerService;
         _dispatcherService = DispatcherService.FromCurrentThread();

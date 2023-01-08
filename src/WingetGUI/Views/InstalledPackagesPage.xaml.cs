@@ -6,11 +6,11 @@ namespace WingetGUI.Views;
 
 public sealed partial class InstalledPackagesPage : Page
 {
-    public InstalledPackagesViewModel ViewModel { get; }
+    public InstalledPageViewModel ViewModel { get; }
 
     public InstalledPackagesPage()
     {
-        ViewModel = App.GetService<InstalledPackagesViewModel>();
+        ViewModel = App.GetService<InstalledPageViewModel>();
         InitializeComponent();
     }
 

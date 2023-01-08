@@ -14,9 +14,9 @@ public class PageService : IPageService
 
     public PageService()
     {
-        Configure<InstalledPackagesViewModel, InstalledPackagesPage>();
+        Configure<InstalledPageViewModel, InstalledPackagesPage>();
         Configure<UpdatedablePackagesViewModel, UpdatedablePackagesPage>();
-        Configure<SearchPackagesViewModel, SearchPackagesPage>();
+        Configure<SearchPageViewModel, SearchPackagesPage>();
     }
 
     public Type GetPageType(string key)

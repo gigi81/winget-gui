@@ -10,7 +10,7 @@ using WingetGUI.ViewModels.Items;
 
 namespace WingetGUI.ViewModels;
 
-public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
+public class InstalledPageViewModel : ObservableRecipient, INavigationAware
 {
     private readonly IPackageManagerService _packageManagerService;
     private readonly IDispatcherService _dispatcherService;
@@ -27,7 +27,7 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
 
     public ObservableCollection<string> Catalogues { get; } = new ObservableCollection<string>();
 
-    public InstalledPackagesViewModel(IPackageManagerService packageManagerService)
+    public InstalledPageViewModel(IPackageManagerService packageManagerService)
     {
         _packageManagerService = packageManagerService;
         _dispatcherService = DispatcherService.FromCurrentThread();
