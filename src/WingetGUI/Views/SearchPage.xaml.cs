@@ -3,11 +3,11 @@ using WingetGUI.ViewModels;
 
 namespace WingetGUI.Views;
 
-public sealed partial class SearchPackagesPage : Page
+public sealed partial class SearchPage : Page
 {
     public SearchPageViewModel ViewModel { get; }
 
-    public SearchPackagesPage()
+    public SearchPage()
     {
         ViewModel = App.GetService<SearchPageViewModel>();
         InitializeComponent();

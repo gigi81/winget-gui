@@ -49,17 +49,12 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem x:Uid="Shell_InstalledPackages" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.InstalledPackagesViewModel">
+                <NavigationViewItem x:Uid="Shell_Installed" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.InstalledPageViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_UpdatedablePackages" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.UpdatedablePackagesViewModel">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_SearchPackages" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.SearchPackagesViewModel">
+                <NavigationViewItem x:Uid="Shell_Search" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.SearchPageViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
                     </NavigationViewItem.Icon>

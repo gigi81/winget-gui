@@ -4,11 +4,11 @@ using WingetGUI.ViewModels;
 
 namespace WingetGUI.Views;
 
-public sealed partial class InstalledPackagesPage : Page
+public sealed partial class InstalledPage : Page
 {
     public InstalledPageViewModel ViewModel { get; }
 
-    public InstalledPackagesPage()
+    public InstalledPage()
     {
         ViewModel = App.GetService<InstalledPageViewModel>();
         InitializeComponent();

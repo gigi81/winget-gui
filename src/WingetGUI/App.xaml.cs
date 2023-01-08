@@ -73,11 +73,11 @@ public partial class App : Application
 
             // Views and ViewModels
             services.AddSingleton<SearchPageViewModel>();
-            services.AddTransient<SearchPackagesPage>();
+            services.AddTransient<SearchPage>();
             services.AddSingleton<UpdatedablePackagesViewModel>();
             services.AddTransient<UpdatedablePackagesPage>();
             services.AddSingleton<InstalledPageViewModel>();
-            services.AddTransient<InstalledPackagesPage>();
+            services.AddTransient<InstalledPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
 
