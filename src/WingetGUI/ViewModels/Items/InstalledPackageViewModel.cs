@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
 using Microsoft.Management.Deployment;
-using System;
 
 namespace WingetGUI.ViewModels.Items;
 public class InstalledPackageViewModel : ObservableObject
