@@ -30,6 +30,17 @@
                 <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" Tag="Name" SortDirection="Ascending" />
                 <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" Tag="Version" />
                 <controls:DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher" Tag="Publisher" />
+                <controls:DataGridTemplateColumn Header="Install" MinWidth="250">
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="2">
+                                <Button Command="{Binding InstallCommand}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverterInverted}}">Install</Button>
+                                <TextBlock Text="{Binding ProgressLabel}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <ProgressBar Value="{Binding ProgressPercentage}" Visibility="{Binding Path=Installing, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </StackPanel>

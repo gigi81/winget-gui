@@ -5,7 +5,7 @@ using WingetGUI.Core.Models;
 using Microsoft.Management.Deployment;
 using System;
 
-namespace WingetGUI.ViewModels;
+namespace WingetGUI.ViewModels.Items;
 public class InstalledPackageViewModel : ObservableObject
 {
     private readonly InstalledPackage _model;
@@ -26,7 +26,7 @@ public class InstalledPackageViewModel : ObservableObject
     public bool Selected
     {
         get => _selected;
-        set => this.SetProperty(ref _selected, value);
+        set => SetProperty(ref _selected, value);
     }
 
     public string Id => _model.Id;
@@ -34,29 +34,29 @@ public class InstalledPackageViewModel : ObservableObject
     public string Version => _model.Version;
     public string Publisher => _model.Publisher;
     public string NextVersion => _model.NextVersion;
-    public AsyncRelayCommand UpgradeCommand => new(() => this.Upgrade(), () => !this.Version.Equals(this.NextVersion));
+    public AsyncRelayCommand UpgradeCommand => new(() => Upgrade(), () => !Version.Equals(NextVersion));
 
     public bool Installing
     {
         get => _installing;
-        set => this.SetProperty(ref _installing, value);
+        set => SetProperty(ref _installing, value);
     }
 
     public string ProgressLabel
     {
         get => _progressLabel;
-        set => this.SetProperty(ref _progressLabel, value);
+        set => SetProperty(ref _progressLabel, value);
     }
 
     public double ProgressPercentage
     {
         get => _progressPercentage;
-        set => this.SetProperty(ref _progressPercentage, value);
+        set => SetProperty(ref _progressPercentage, value);
     }
 
     private async Task Upgrade()
     {
-        _dispatcherService.TryEnqueue(() => this.Installing = true);
+        _dispatcherService.TryEnqueue(() => Installing = true);
 
         var result = await _packageManagerService.Upgrade(_model, (progress) =>
         {
@@ -65,21 +65,21 @@ public class InstalledPackageViewModel : ObservableObject
                 switch (progress.State)
                 {
                     case PackageInstallProgressState.Queued:
-                        this.ProgressLabel = "Queued";
+                        ProgressLabel = "Queued";
                         break;
                     case PackageInstallProgressState.Downloading:
-                        this.ProgressLabel = "Downloading";
-                        this.ProgressPercentage = progress.DownloadProgress * 100;
+                        ProgressLabel = "Downloading";
+                        ProgressPercentage = progress.DownloadProgress * 100;
                         break;
                     case PackageInstallProgressState.Installing:
-                        this.ProgressLabel = "Installing";
-                        this.ProgressPercentage = progress.InstallationProgress * 100;
+                        ProgressLabel = "Installing";
+                        ProgressPercentage = progress.InstallationProgress * 100;
                         break;
                     case PackageInstallProgressState.PostInstall:
-                        this.ProgressLabel = "Post Install";
+                        ProgressLabel = "Post Install";
                         break;
                     case PackageInstallProgressState.Finished:
-                        this.ProgressLabel = "Finished";
+                        ProgressLabel = "Finished";
                         break;
                 }
             });
@@ -90,35 +90,35 @@ public class InstalledPackageViewModel : ObservableObject
             switch (result)
             {
                 case InstallResultStatus.Ok:
-                    this.ProgressLabel = "Installed Successfully";
-                    this.ProgressPercentage = 100;
+                    ProgressLabel = "Installed Successfully";
+                    ProgressPercentage = 100;
                     break;
                 case InstallResultStatus.BlockedByPolicy:
-                    this.ProgressLabel = "Blocked by Policy";
+                    ProgressLabel = "Blocked by Policy";
                     break;
                 case InstallResultStatus.CatalogError:
-                    this.ProgressLabel = "Catalog Error";
+                    ProgressLabel = "Catalog Error";
                     break;
                 case InstallResultStatus.InternalError:
-                    this.ProgressLabel = "Install Error";
+                    ProgressLabel = "Install Error";
                     break;
                 case InstallResultStatus.InvalidOptions:
-                    this.ProgressLabel = "Invalid Options";
+                    ProgressLabel = "Invalid Options";
                     break;
                 case InstallResultStatus.DownloadError:
-                    this.ProgressLabel = "Download Error";
+                    ProgressLabel = "Download Error";
                     break;
                 case InstallResultStatus.InstallError:
-                    this.ProgressLabel = "Install Error";
+                    ProgressLabel = "Install Error";
                     break;
                 case InstallResultStatus.ManifestError:
-                    this.ProgressLabel = "Manifest Error";
+                    ProgressLabel = "Manifest Error";
                     break;
                 case InstallResultStatus.NoApplicableInstallers:
-                    this.ProgressLabel = "No Applicable Installers";
+                    ProgressLabel = "No Applicable Installers";
                     break;
                 case InstallResultStatus.NoApplicableUpgrade:
-                    this.ProgressLabel = "No Applicable Upgrade";
+                    ProgressLabel = "No Applicable Upgrade";
                     break;
             }
 

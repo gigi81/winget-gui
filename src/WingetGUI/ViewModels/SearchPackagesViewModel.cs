@@ -1,11 +1,9 @@
-﻿using System.Collections.ObjectModel;
-
-using CommunityToolkit.Mvvm.ComponentModel;
-
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WingetGUI.Contracts.ViewModels;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
 using WingetGUI.Services;
+using WingetGUI.ViewModels.Items;
 
 namespace WingetGUI.ViewModels;
 
@@ -15,7 +13,7 @@ public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
     private bool _searching;
     private readonly IPackageManagerService _packageManagerService;
     private readonly IDispatcherService _dispatcherService;
-    private IList<SearchResultPackage> _source = new List<SearchResultPackage>();
+    private IList<SearchPackageViewModel> _source = new List<SearchPackageViewModel>();
 
     public SearchPackagesViewModel(IPackageManagerService packageManagerService)
     {
@@ -23,7 +21,7 @@ public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
         _dispatcherService = DispatcherService.FromCurrentThread();
     }
 
-    public IList<SearchResultPackage> Source
+    public IList<SearchPackageViewModel> Source
     {
         get => _source;
         private set => this.SetProperty(ref _source, value);
@@ -56,11 +54,13 @@ public class SearchPackagesViewModel : ObservableRecipient, INavigationAware
 
             _dispatcherService.TryEnqueue(() =>
             {
-                this.Source = source.ToList();
+                this.Source = source.Select(CreatePackageViewModel).ToList();
                 this.Searching = false;
             });
         });
     }
+
+    private SearchPackageViewModel CreatePackageViewModel(SearchResultPackage p) => new(p, _packageManagerService, _dispatcherService);
 
     public void OnNavigatedTo(object parameter)
     {

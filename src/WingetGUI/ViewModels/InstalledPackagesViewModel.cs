@@ -6,6 +6,7 @@ using WingetGUI.Contracts.ViewModels;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
 using WingetGUI.Services;
+using WingetGUI.ViewModels.Items;
 
 namespace WingetGUI.ViewModels;
 
@@ -32,7 +33,7 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
         _dispatcherService = DispatcherService.FromCurrentThread();
     }
 
-    public RelayCommand SelectAllCommand => new RelayCommand(this.SelectAll, () => true);
+    public RelayCommand SelectAllCommand => new(this.SelectAll, () => true);
 
     private void SelectAll()
     {
@@ -88,8 +89,11 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
     {
         try
         {
-            _dispatcherService.TryEnqueue(() => this.Loading = true);
-            //_dispatcherService.TryEnqueue(() => Source.Clear());
+            _dispatcherService.TryEnqueue(() =>
+            {
+                this.Loading = true;
+                this.Source.Clear();
+            });
 
             if (String.IsNullOrEmpty(this.PackageCatalogName))
                 return;
@@ -98,7 +102,7 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
 
             _dispatcherService.TryEnqueue(() =>
             {
-                this.UpdateSource(packages.Select(p => new InstalledPackageViewModel(p, _packageManagerService, _dispatcherService)).ToList());
+                this.UpdateSource(packages.Select(CreatePackageViewModel).ToList());
             });
         }
         finally
@@ -106,6 +110,8 @@ public class InstalledPackagesViewModel : ObservableRecipient, INavigationAware
             _dispatcherService.TryEnqueue(() => this.Loading = false);
         }
     }
+
+    private InstalledPackageViewModel CreatePackageViewModel(InstalledPackage p) => new(p, _packageManagerService, _dispatcherService);
 
     private void UpdateSource(IEnumerable<InstalledPackageViewModel> packages)
     {
