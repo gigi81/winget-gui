@@ -10,7 +10,7 @@ namespace WingetGUI.ViewModels;
 
 public class SearchPageViewModel : ObservableRecipient, INavigationAware
 {
-    private string _search;
+    private string _search = "";
     private bool _searching;
     private string _sorting = nameof(SearchPackageViewModel.Name);
     private readonly IPackageManagerService _packageManagerService;

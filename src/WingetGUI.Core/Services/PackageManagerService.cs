@@ -118,18 +118,19 @@ public class PackageManagerService : IPackageManagerService
 
     public Task<InstallResultStatus> Upgrade(InstalledPackage package, Action<InstallProgress> callback)
     {
-        return InstallPackage(package._package, callback);
+        return InstallPackage(package._package, PackageInstallScope.Any, callback);
     }
 
-    public Task<InstallResultStatus> Install(SearchResultPackage package, Action<InstallProgress> callback)
+    public Task<InstallResultStatus> Install(SearchResultPackage package, InstallScope scope, Action<InstallProgress> callback)
     {
-        return InstallPackage(package._package, callback);
+        return InstallPackage(package._package, MapScope(scope), callback);
     }
 
-    private async Task<InstallResultStatus> InstallPackage(CatalogPackage package, Action<InstallProgress> callback)
+    private async Task<InstallResultStatus> InstallPackage(CatalogPackage package, PackageInstallScope scope, Action<InstallProgress> callback)
     {
         var installOptions = WingetProjectionFactory.Value.CreateInstallOptions();
         installOptions.PackageInstallMode = PackageInstallMode.Silent;
+        installOptions.PackageInstallScope = scope;
         var installOperation = PackageManager.Value.InstallPackageAsync(package, installOptions);
 
         installOperation.Progress = (_, progress) =>
@@ -173,5 +174,17 @@ public class PackageManagerService : IPackageManagerService
         var connectResult = await catalogReference.ConnectAsync();
 
         return connectResult.PackageCatalog;
+    }
+
+    private PackageInstallScope MapScope(InstallScope scope)
+    {
+        switch (scope)
+        {
+            case InstallScope.Any: return PackageInstallScope.Any;
+            case InstallScope.User: return PackageInstallScope.User;
+            case InstallScope.System: return PackageInstallScope.System;
+        }
+
+        throw new ArgumentException(nameof(scope));
     }
 }

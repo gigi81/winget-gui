@@ -3,6 +3,13 @@ using WingetGUI.Core.Models;
 
 namespace WingetGUI.Core.Contracts.Services;
 
+public enum InstallScope
+{
+    Any,
+    User,
+    System
+}
+
 public interface IPackageManagerService
 {
     Task<IReadOnlyCollection<InstalledPackage>> GetInstalledPackages(string packageCatalogName, CancellationToken cancellationToken);
@@ -15,5 +22,5 @@ public interface IPackageManagerService
 
     Task<IReadOnlyCollection<SearchResultPackage>> Search(string packageCatalogName, string query, CancellationToken cancellationToken);
 
-    Task<InstallResultStatus> Install(SearchResultPackage package, Action<InstallProgress> callback);
+    Task<InstallResultStatus> Install(SearchResultPackage package, InstallScope scope, Action<InstallProgress> callback);
 }

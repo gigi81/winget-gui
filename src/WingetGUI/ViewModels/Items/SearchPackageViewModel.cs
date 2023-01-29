@@ -14,6 +14,7 @@ public class SearchPackageViewModel : ObservableObject
     private string _progressLabel = "";
     private double _progressPercentage;
     private bool _installing;
+    private InstallScope _installScope = InstallScope.Any;
 
     internal SearchPackageViewModel(SearchResultPackage model, IPackageManagerService packageManagerService, IDispatcherService dispatcherService)
     {
@@ -56,7 +57,7 @@ public class SearchPackageViewModel : ObservableObject
     {
         _dispatcherService.TryEnqueue(() => Installing = true);
 
-        var result = await _packageManagerService.Install(_model, (progress) =>
+        var result = await _packageManagerService.Install(_model, _installScope, (progress) =>
         {
             _dispatcherService.TryEnqueue(() =>
             {

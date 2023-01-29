@@ -77,12 +77,21 @@ public class InstalledPageViewModel : ObservableRecipient, INavigationAware
         if (!String.IsNullOrEmpty(this.PackageCatalogName))
             return;
 
-        this.Catalogues.Clear();
-        foreach (var catalogue in _packageManagerService.GetPackageCatalogs())
-            this.Catalogues.Add(catalogue);
+        await Task.Run(() =>
+        {
+            var catalogues = _packageManagerService.GetPackageCatalogs();
 
-        this.PackageCatalogName = this.Catalogues.FirstOrDefault(n => n.Contains("winget", StringComparison.CurrentCultureIgnoreCase)) ??
-                                  this.Catalogues.FirstOrDefault();
+            _dispatcherService.TryEnqueue(() =>
+            {
+                this.Catalogues.Clear();
+                foreach (var catalogue in catalogues)
+                    this.Catalogues.Add(catalogue);
+
+                this.PackageCatalogName = this.Catalogues.FirstOrDefault(n => n.Contains("winget", StringComparison.CurrentCultureIgnoreCase)) ??
+                                          this.Catalogues.FirstOrDefault();
+
+            });
+        });
     }
 
     private async Task UpdateSource()

@@ -11,7 +11,7 @@ public class InstalledPackageViewModel : ObservableObject
     private readonly IPackageManagerService _packageManagerService;
     private readonly IDispatcherService _dispatcherService;
     private bool _selected;
-    private string _progressLabel;
+    private string _progressLabel = "";
     private double _progressPercentage;
     private bool _installing;
 
