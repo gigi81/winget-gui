@@ -50,12 +50,12 @@
                     </controls:DataGridTemplateColumn.CellTemplate>
                 </controls:DataGridTemplateColumn>
 
-                <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
                 <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" Tag="Name" SortDirection="Ascending" />
                 <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" Tag="Version" />
+                <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
                 <controls:DataGridTextColumn Binding="{Binding NextVersion}" Header="NextVersion" Tag="NextVersion" />
                 <controls:DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher" Tag="Publisher" />
-                <controls:DataGridTemplateColumn Header="Upgrade" MinWidth="250">
+                <controls:DataGridTemplateColumn Header="Upgrade" MinWidth="250" Width="*">
                     <controls:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Margin="2">

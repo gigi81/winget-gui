@@ -14,7 +14,7 @@ public class InstalledPageViewModel : ObservableRecipient, INavigationAware
 {
     private readonly IPackageManagerService _packageManagerService;
     private readonly IDispatcherService _dispatcherService;
-    private string _sorting = nameof(InstalledPackage.Name);
+    private string _sorting = nameof(InstalledPackageViewModel.Name);
     private string? _packageCatalogName;
     private bool _loading;
     private IList<InstalledPackageViewModel> _source = new List<InstalledPackageViewModel>();

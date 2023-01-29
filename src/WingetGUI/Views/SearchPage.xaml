@@ -13,8 +13,8 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterInverted" TrueValue="Collapsed" FalseValue="Visible"/>
     </Page.Resources>
 
-    <StackPanel x:Name="ContentArea" Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" Margin="5">
+    <Grid x:Name="ContentArea" RowDefinitions ="auto,*">
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
             <AutoSuggestBox Width="300"
                             Text="{x:Bind ViewModel.Search, Mode=TwoWay}"
                             QuerySubmitted="{x:Bind ViewModel.SearchSubmitted}"
@@ -25,18 +25,20 @@
             <ProgressRing IsActive="{x:Bind ViewModel.Searching, Mode=OneWay}" Margin="10, 0, 0, 0" />
         </StackPanel>
         <controls:DataGrid
+            Grid.Row="1"
             AutoGenerateColumns="False"
             GridLinesVisibility="Horizontal"
+            Sorting="DataGrid_Sorting"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
                 <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" Tag="Name" SortDirection="Ascending" />
                 <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" Tag="Version" />
+                <controls:DataGridTextColumn Binding="{Binding Id}" Header="Package ID" Tag="Id" />
                 <controls:DataGridTextColumn Binding="{Binding Publisher}" Header="Publisher" Tag="Publisher" />
-                <controls:DataGridTemplateColumn Header="Install" MinWidth="250">
+                <controls:DataGridTemplateColumn Header="Install" MinWidth="250" Width="*">
                     <controls:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Margin="2">
@@ -49,5 +51,5 @@
                 </controls:DataGridTemplateColumn>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-    </StackPanel>
+    </Grid>
 </Page>

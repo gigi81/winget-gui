@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Linq.Dynamic.Core;
 using WingetGUI.Contracts.ViewModels;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Models;
@@ -11,6 +12,7 @@ public class SearchPageViewModel : ObservableRecipient, INavigationAware
 {
     private string _search;
     private bool _searching;
+    private string _sorting = nameof(SearchPackageViewModel.Name);
     private readonly IPackageManagerService _packageManagerService;
     private readonly IDispatcherService _dispatcherService;
     private IList<SearchPackageViewModel> _source = new List<SearchPackageViewModel>();
@@ -45,6 +47,19 @@ public class SearchPageViewModel : ObservableRecipient, INavigationAware
         }
     }
 
+    public string Sorting
+    {
+        get => _sorting;
+        set
+        {
+            if (String.IsNullOrWhiteSpace(value))
+                return;
+
+            if (SetProperty(ref _sorting, value))
+                this.UpdateSource(this.Source);
+        }
+    }
+
     public void SearchSubmitted()
     {
         this.Searching = true;
@@ -54,13 +69,19 @@ public class SearchPageViewModel : ObservableRecipient, INavigationAware
 
             _dispatcherService.TryEnqueue(() =>
             {
-                this.Source = source.Select(CreatePackageViewModel).ToList();
+                this.UpdateSource(source.Select(CreatePackageViewModel).ToList());
                 this.Searching = false;
             });
         });
     }
 
     private SearchPackageViewModel CreatePackageViewModel(SearchResultPackage p) => new(p, _packageManagerService, _dispatcherService);
+
+    private void UpdateSource(IEnumerable<SearchPackageViewModel> packages)
+    {
+        var sorted = packages.AsQueryable().OrderBy(this.Sorting).ToArray();
+        this.Source = sorted.ToList();
+    }
 
     public void OnNavigatedTo(object parameter)
     {
