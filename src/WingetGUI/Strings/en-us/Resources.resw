@@ -146,4 +146,7 @@
   &lt;/actions&gt;
 &lt;/toast&gt;</value>
   </data>
+  <data name="InstalledPage_Catalogue.Text" xml:space="preserve">
+    <value>Catalogue</value>
+  </data>
 </root>
