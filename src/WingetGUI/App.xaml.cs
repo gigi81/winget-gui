@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
+using Windows.Storage;
 using Windows.System;
 using WingetGUI.Activation;
 using WingetGUI.Contracts.Services;
@@ -46,6 +47,10 @@ public partial class App : Application
     {
         InitializeComponent();
 
+        var folder = LogFolder;
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
@@ -89,6 +94,7 @@ public partial class App : Application
             services.AddLogging(config =>
             {
                 config.AddConsole();
+                config.AddFile(o => o.RootPath = LogFolder);
             });
 
             // Configuration
@@ -115,4 +121,6 @@ public partial class App : Application
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
+
+    public static string LogFolder => Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs");
 }

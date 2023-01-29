@@ -35,12 +35,6 @@
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="SearchBox"
-                                MinWidth="150"
-                                VerticalAlignment="Center"
-                                QueryIcon="Find"/>
-            </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <!--
                 TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
@@ -51,12 +45,12 @@
                 -->
                 <NavigationViewItem x:Uid="Shell_Installed" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.InstalledPageViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe71d;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Uid="Shell_Search" helpers:NavigationHelper.NavigateTo="WingetGUI.ViewModels.SearchPageViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80a;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe721;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

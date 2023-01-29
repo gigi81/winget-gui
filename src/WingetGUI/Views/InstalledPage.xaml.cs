@@ -31,4 +31,9 @@ public sealed partial class InstalledPage : Page
         foreach(var package in this.ViewModel.Source)
             package.Selected = check.Value;
     }
+
+    private void Refresh_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        Task.Run(this.ViewModel.UpdateSource);
+    }
 }

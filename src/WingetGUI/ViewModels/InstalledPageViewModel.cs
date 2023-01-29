@@ -94,7 +94,7 @@ public class InstalledPageViewModel : ObservableRecipient, INavigationAware
         });
     }
 
-    private async Task UpdateSource()
+    public async Task UpdateSource()
     {
         try
         {

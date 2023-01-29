@@ -14,9 +14,11 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterInverted" TrueValue="Collapsed" FalseValue="Visible"/>
     </Page.Resources>
     
-    <Grid x:Name="ContentArea" RowDefinitions ="100,*">
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ComboBox ItemsSource="{x:Bind ViewModel.Catalogues}" Header="Catalogue" Width="200" SelectedValue="{x:Bind ViewModel.PackageCatalogName, Mode=TwoWay}"/>
+    <Grid x:Name="ContentArea" RowDefinitions ="auto,*">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Top" Margin="0, 0, 0, 20">
+            <TextBlock Text="Catalogue" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{x:Bind ViewModel.Catalogues}" Width="200" SelectedValue="{x:Bind ViewModel.PackageCatalogName, Mode=TwoWay}" Margin="10, 0, 0, 0"/>
+            <Button Content="Refresh" Click="Refresh_Click" Margin="10, 0, 0, 0"/>
             <ProgressRing IsActive="{x:Bind ViewModel.Loading, Mode=TwoWay}" Grid.Row="0" Margin="10, 0, 0, 0" />
         </StackPanel>
         <controls:DataGrid
