@@ -79,13 +79,10 @@ public partial class App : Application
             // Views and ViewModels
             services.AddSingleton<SearchPageViewModel>();
             services.AddTransient<SearchPage>();
-            services.AddSingleton<UpdatedablePackagesViewModel>();
-            services.AddTransient<UpdatedablePackagesPage>();
             services.AddSingleton<InstalledPageViewModel>();
             services.AddTransient<InstalledPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
-
 
             services.AddTransient(s => DispatcherQueue.GetForCurrentThread());
             services.AddTransient<IDispatcherService, DispatcherService>();
@@ -117,7 +114,7 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
-        App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
+        //App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
