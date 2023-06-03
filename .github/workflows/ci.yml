@@ -20,14 +20,15 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-#      - name: Add msbuild to PATH
-#        uses: microsoft/setup-msbuild@v1.1
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
 #      - name: Build winget-cli
 #        run: msbuild.exe winget-cli\src\AppInstallerCLI.sln /p:Configuration=Release
       - name: .NET Restore
         run: dotnet restore
+      # dotnet build not supported see https://github.com/microsoft/microsoft-ui-xaml/issues/5327
       - name: .NET Build
-        run: dotnet build --configuration Release
+        run: msbuild.exe /p:Configuration=Release
       - name: .NET Test
         run: dotnet test --configuration Release --collect:"XPlat Code Coverage"  --logger "GitHubActions"
       - name: Upload coverage
