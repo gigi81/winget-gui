@@ -8,7 +8,6 @@ using WingetGUI.Activation;
 using WingetGUI.Contracts.Services;
 using WingetGUI.Core.Contracts.Services;
 using WingetGUI.Core.Services;
-using WingetGUI.Helpers;
 using WingetGUI.Models;
 using WingetGUI.Notifications;
 using WingetGUI.Services;
@@ -73,7 +72,6 @@ public partial class App : Application
 
             // Core Services
             services.AddSingleton<IPackageManagerService, PackageManagerService>();
-            services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IFileService, FileService>();
 
             // Views and ViewModels
