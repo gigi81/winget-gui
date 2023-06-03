@@ -1,3 +1,3 @@
 [submodule "winget-cli"]
 	path = winget-cli
-	url = https://github.com/microsoft/winget-cli.git
+	url = https://github.com/gigi81/winget-cli.git
