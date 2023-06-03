@@ -28,9 +28,12 @@ jobs:
       - name: Nuget restore winget-cli
         run: nuget restore
         working-directory: winget-cli/src
-      - name: Build winget-cli
-        run: msbuild.exe /p:Configuration=Release
+      - name: .NET restore winget-cli
+        run: dotnet restore
         working-directory: winget-cli/src
+      - name: Build winget-cli Projection
+        run: msbuild.exe /p:Configuration=Release
+        working-directory: winget-cli/src/Microsoft.Management.Deployment.Projection
       - name: .NET Restore
         run: dotnet restore
       # dotnet build not supported see https://github.com/microsoft/microsoft-ui-xaml/issues/5327
