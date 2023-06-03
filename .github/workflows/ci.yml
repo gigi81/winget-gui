@@ -14,9 +14,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v3
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 1
-          persist-credentials: true
+          persist-credentials: false
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
