@@ -24,9 +24,11 @@ jobs:
 #        uses: microsoft/setup-msbuild@v1.1
 #      - name: Build winget-cli
 #        run: msbuild.exe winget-cli\src\AppInstallerCLI.sln /p:Configuration=Release
-      - name: Build project
+      - name: .NET Restore
+        run: dotnet restore
+      - name: .NET Build
         run: dotnet build --configuration Release
-      - name: Run tests
+      - name: .NET Test
         run: dotnet test --configuration Release --collect:"XPlat Code Coverage"  --logger "GitHubActions"
       - name: Upload coverage
         uses: actions/upload-artifact@v3

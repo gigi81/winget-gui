@@ -1,0 +1,60 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Microsoft.Management.Deployment.Projection/1.0.0": {
+        "dependencies": {
+          "Microsoft.Management.Deployment": "1.0.0",
+          "Microsoft.Windows.CsWinRT": "2.0.0",
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.27"
+        },
+        "runtime": {
+          "Microsoft.Management.Deployment.Projection.dll": {}
+        }
+      },
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.27": {
+        "runtime": {
+          "Microsoft.Windows.SDK.NET.dll": {
+            "assemblyVersion": "10.0.19041.24",
+            "fileVersion": "10.0.19041.27"
+          },
+          "WinRT.Runtime.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.39961"
+          }
+        }
+      },
+      "Microsoft.Windows.CsWinRT/2.0.0": {
+        "runtime": {
+          "lib/net6.0/WinRT.Runtime.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.39961"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Management.Deployment.Projection/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.27": {
+      "type": "runtimepack",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Windows.CsWinRT/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z4NdAGpXQbe8bu1amMfqqwjntQy8VsTWYPhcY8KTQCLcxIKzPZm8gsJPt6qIJIJeZd8cR9ig4DQylXNfiXGbaw==",
+      "path": "microsoft.windows.cswinrt/2.0.0",
+      "hashPath": "microsoft.windows.cswinrt.2.0.0.nupkg.sha512"
+    }
+  }
+}
