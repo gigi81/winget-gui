@@ -25,15 +25,11 @@ jobs:
           nuget-version: '6.x'
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
-      - name: Nuget restore winget-cli
-        run: nuget restore
-        working-directory: winget-cli/src
-      - name: .NET restore winget-cli
-        run: dotnet restore
-        working-directory: winget-cli/src
+
       - name: Build winget-cli Projection
-        run: msbuild.exe /p:Configuration=Release
+        run: msbuild.exe /p:Configuration=Release -t:restore,build
         working-directory: winget-cli/src/Microsoft.Management.Deployment.Projection
+
       - name: .NET Restore
         run: dotnet restore
       # dotnet build not supported see https://github.com/microsoft/microsoft-ui-xaml/issues/5327
