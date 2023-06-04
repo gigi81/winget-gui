@@ -26,8 +26,16 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Nuget restore winget-cli
+        run: nuget restore winget-cli\src\AppInstallerCLI.sln
+      - name: .NET restore winget-cli 1
+        run: dotnet restore winget-cli\src\AppInstallerCLI.sln
+      - name: .NET restore winget-cli 2
+        run: dotnet restore winget-cli\src\AppInstallerCLIPackage\AppInstallerCLIPackage.wapproj
+      - name: .NET restore winget-cli 3
+        run: dotnet restore winget-cli\src\AppInstallerTestMsixInstaller\AppInstallerTestMsixInstaller.wapproj
       - name: Build winget-cli Projection
-        run: msbuild.exe /p:Configuration=Release -t:restore,build
+        run: msbuild.exe /p:Configuration=Release /p:Platform=x86
         working-directory: winget-cli/src/Microsoft.Management.Deployment.Projection
 
       - name: .NET Restore
